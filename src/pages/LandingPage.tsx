@@ -7,14 +7,14 @@ const LandingPage = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="relative min-h-screen overflow-hidden">
+    <div className="relative h-screen overflow-hidden">
       {/* Background Image */}
       <div 
-        className="absolute inset-0 bg-cover bg-top bg-no-repeat"
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: `url(${heroBg})` }}
       >
         {/* Gradient overlay for better text readability */}
-        <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/30 to-background/80" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-transparent to-background/60" />
       </div>
 
       {/* Scanline effect */}
@@ -24,7 +24,7 @@ const LandingPage = () => {
       <Navbar />
 
       {/* Hero Content */}
-      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-4 pt-20">
+      <div className="relative z-10 flex flex-col items-center justify-center h-full px-4">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -66,59 +66,7 @@ const LandingPage = () => {
             <span className="absolute inset-0 bg-primary/5 opacity-0 hover:opacity-100 transition-opacity" />
           </motion.button>
         </motion.div>
-
       </div>
-
-      {/* Features Section */}
-      <section className="relative z-10 py-24 px-4 bg-gradient-to-b from-transparent to-background">
-        <div className="container mx-auto max-w-6xl">
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-3xl md:text-4xl font-orbitron text-center mb-16 text-gradient"
-          >
-            MONITOR THE COSMOS
-          </motion.h2>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            {[
-              {
-                title: 'Real-Time Tracking',
-                description: 'Live data from NASA NeoWs API showing current asteroid positions, velocities, and trajectories.',
-                icon: '🛰️',
-              },
-              {
-                title: 'Risk Analysis',
-                description: 'Comprehensive hazard assessment categorizing asteroids by potential impact threat levels.',
-                icon: '⚠️',
-              },
-              {
-                title: '3D Visualization',
-                description: 'Interactive solar system model showing asteroid orbits relative to Earth.',
-                icon: '🌍',
-              },
-            ].map((feature, index) => (
-              <motion.div
-                key={feature.title}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.2 }}
-                className="p-6 bg-card/50 backdrop-blur-sm border border-border rounded-lg hover:border-primary/50 transition-all duration-300 group"
-              >
-                <div className="text-4xl mb-4">{feature.icon}</div>
-                <h3 className="text-xl font-orbitron text-primary mb-3">
-                  {feature.title}
-                </h3>
-                <p className="text-muted-foreground font-rajdhani">
-                  {feature.description}
-                </p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
     </div>
   );
 };
