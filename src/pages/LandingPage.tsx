@@ -10,7 +10,7 @@ const LandingPage = () => {
     <div className="relative min-h-screen overflow-hidden">
       {/* Background Image */}
       <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        className="absolute inset-0 bg-cover bg-top bg-no-repeat"
         style={{ backgroundImage: `url(${heroBg})` }}
       >
         {/* Gradient overlay for better text readability */}
@@ -67,26 +67,6 @@ const LandingPage = () => {
           </motion.button>
         </motion.div>
 
-        {/* Decorative elements */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 0.6 }}
-          transition={{ duration: 1, delay: 1 }}
-          className="absolute bottom-10 left-1/2 transform -translate-x-1/2"
-        >
-          <div className="flex flex-col items-center gap-2">
-            <span className="text-xs font-rajdhani tracking-widest text-muted-foreground">
-              SCROLL TO EXPLORE
-            </span>
-            <motion.div
-              animate={{ y: [0, 8, 0] }}
-              transition={{ duration: 1.5, repeat: Infinity }}
-              className="w-6 h-10 border-2 border-muted-foreground/50 rounded-full flex justify-center pt-2"
-            >
-              <div className="w-1.5 h-3 bg-primary rounded-full" />
-            </motion.div>
-          </div>
-        </motion.div>
       </div>
 
       {/* Features Section */}
