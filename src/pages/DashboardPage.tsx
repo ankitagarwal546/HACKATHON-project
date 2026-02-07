@@ -136,24 +136,6 @@ const DashboardPage = () => {
                 onSelectMonth={setSelectedMonth}
               />
 
-              {/* ISS Live Feed Section */}
-              <div className="mt-6 pt-6 border-t border-border">
-                <h3 className="font-orbitron text-lg text-foreground mb-2">
-                  Live from the ISS
-                </h3>
-                <p className="text-xs text-muted-foreground font-rajdhani mb-3">
-                  Live video from the International Space Station
-                </p>
-                <div className="aspect-video bg-secondary rounded-lg overflow-hidden">
-                  <iframe
-                    src="https://www.youtube.com/embed/P9C25Un7xaM?autoplay=0&mute=1"
-                    title="ISS Live"
-                    className="w-full h-full"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                  />
-                </div>
-              </div>
             </div>
           </motion.div>
 

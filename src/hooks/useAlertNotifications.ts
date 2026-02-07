@@ -12,8 +12,9 @@ export const useAlertNotifications = () => {
     // Find high-risk asteroids
     const highRiskAsteroids = mockAsteroids.filter(a => a.riskScore === 'high' || (a.isHazardous && a.riskScore === 'medium'));
 
-    // Show alerts with delays
-    highRiskAsteroids.forEach((asteroid, index) => {
+    // Show only the first high-risk alert with a longer delay
+    if (highRiskAsteroids.length > 0) {
+      const asteroid = highRiskAsteroids[0];
       const now = new Date();
       const approachDate = new Date(asteroid.closeApproachDate);
       const daysUntil = Math.ceil((approachDate.getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
@@ -25,9 +26,9 @@ export const useAlertNotifications = () => {
           title: '⚠️ Close Approach Alert',
           description: `${asteroid.name} — Distance: ${(asteroid.missDistanceKm / 1000000).toFixed(2)}M km — ${timeText}`,
           variant: asteroid.riskScore === 'high' ? 'destructive' : 'default',
-          duration: 8000,
+          duration: 6000,
         });
-      }, 1500 + index * 2000);
-    });
+      }, 3000);
+    }
   }, []);
 };
