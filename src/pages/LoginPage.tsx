@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useToast } from '@/hooks/use-toast';
+import { Shield, Lock, Fingerprint, Radio } from 'lucide-react';
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -23,8 +24,8 @@ const LoginPage = () => {
       setIsLoading(false);
       localStorage.setItem('isAuthenticated', 'true');
       toast({
-        title: 'Welcome back, Commander!',
-        description: 'Accessing asteroid tracking systems...',
+        title: 'Access Granted',
+        description: 'Initializing monitoring console...',
       });
       navigate('/dashboard');
     }, 1500);
@@ -35,8 +36,8 @@ const LoginPage = () => {
     
     if (signupData.password !== signupData.confirmPassword) {
       toast({
-        title: 'Password mismatch',
-        description: 'Please ensure both passwords match.',
+        title: 'Verification Failed',
+        description: 'Security codes do not match.',
         variant: 'destructive',
       });
       return;
@@ -49,8 +50,8 @@ const LoginPage = () => {
       setIsLoading(false);
       localStorage.setItem('isAuthenticated', 'true');
       toast({
-        title: 'Registration complete!',
-        description: 'Welcome to Cosmic Watch, Commander.',
+        title: 'Clearance Approved',
+        description: 'Welcome to Cosmic Watch monitoring system.',
       });
       navigate('/dashboard');
     }, 1500);
@@ -81,6 +82,14 @@ const LoginPage = () => {
         ))}
       </div>
 
+      {/* Grid overlay effect */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute inset-0" style={{
+          backgroundImage: 'linear-gradient(hsl(var(--primary)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--primary)) 1px, transparent 1px)',
+          backgroundSize: '50px 50px'
+        }} />
+      </div>
+
       {/* Login Card */}
       <motion.div
         initial={{ opacity: 0, y: 20, scale: 0.95 }}
@@ -88,147 +97,193 @@ const LoginPage = () => {
         transition={{ duration: 0.5 }}
         className="w-full max-w-md relative z-10"
       >
-        <div className="bg-card/80 backdrop-blur-xl border border-border rounded-xl p-8 glow-border">
-          {/* Header */}
-          <div className="text-center mb-8">
-            <motion.div
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              transition={{ type: 'spring', delay: 0.2 }}
-              className="w-16 h-16 mx-auto mb-4 rounded-full bg-primary/20 flex items-center justify-center"
-            >
-              <span className="text-3xl">🛸</span>
-            </motion.div>
-            <h1 className="text-2xl font-orbitron font-bold text-primary">
-              COSMIC WATCH
-            </h1>
-            <p className="text-muted-foreground text-sm mt-2 font-rajdhani">
-              Access the asteroid monitoring system
-            </p>
+        <div className="bg-card/90 backdrop-blur-xl border border-primary/30 rounded-xl overflow-hidden">
+          {/* Security Header */}
+          <div className="bg-secondary/80 border-b border-primary/30 px-6 py-4">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <div className="relative">
+                  <Radio className="w-4 h-4 text-primary animate-pulse" />
+                  <span className="absolute -top-0.5 -right-0.5 w-2 h-2 bg-safe rounded-full" />
+                </div>
+                <span className="text-xs font-orbitron text-primary">SECURE CHANNEL</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Lock className="w-3 h-3 text-safe" />
+                <span className="text-[10px] text-safe font-rajdhani">ENCRYPTED</span>
+              </div>
+            </div>
           </div>
 
-          {/* Tabs */}
-          <Tabs defaultValue="login" className="w-full">
-            <TabsList className="grid w-full grid-cols-2 mb-6 bg-secondary">
-              <TabsTrigger 
-                value="login" 
-                className="font-orbitron text-xs data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
+          <div className="p-8">
+            {/* Header */}
+            <div className="text-center mb-8">
+              <motion.div
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ type: 'spring', delay: 0.2 }}
+                className="w-20 h-20 mx-auto mb-4 rounded-full bg-primary/10 border-2 border-primary/50 flex items-center justify-center relative"
+                style={{
+                  boxShadow: '0 0 30px hsl(var(--primary) / 0.3)',
+                }}
               >
-                LOGIN
-              </TabsTrigger>
-              <TabsTrigger 
-                value="signup"
-                className="font-orbitron text-xs data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
+                <Shield className="w-10 h-10 text-primary" />
+                <motion.div
+                  className="absolute inset-0 rounded-full border-2 border-primary/30"
+                  animate={{ scale: [1, 1.2, 1], opacity: [0.5, 0, 0.5] }}
+                  transition={{ duration: 2, repeat: Infinity }}
+                />
+              </motion.div>
+              <h1 className="text-xl font-orbitron font-bold text-foreground tracking-wider">
+                COSMIC WATCH
+              </h1>
+              <p className="text-primary text-sm mt-1 font-orbitron">
+                MONITORING CONSOLE
+              </p>
+              <div className="mt-3 px-4 py-2 bg-warning/10 border border-warning/30 rounded-lg inline-block">
+                <p className="text-warning text-xs font-rajdhani flex items-center gap-2">
+                  <Fingerprint className="w-3 h-3" />
+                  Authorized Research Personnel Only
+                </p>
+              </div>
+            </div>
+
+            {/* Tabs */}
+            <Tabs defaultValue="login" className="w-full">
+              <TabsList className="grid w-full grid-cols-2 mb-6 bg-secondary/80 border border-border">
+                <TabsTrigger 
+                  value="login" 
+                  className="font-orbitron text-xs data-[state=active]:bg-primary/20 data-[state=active]:text-primary"
+                >
+                  REQUEST ACCESS
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="signup"
+                  className="font-orbitron text-xs data-[state=active]:bg-primary/20 data-[state=active]:text-primary"
+                >
+                  REGISTER
+                </TabsTrigger>
+              </TabsList>
+
+              {/* Login Form */}
+              <TabsContent value="login">
+                <form onSubmit={handleLogin} className="space-y-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="email" className="font-orbitron text-xs text-muted-foreground tracking-wider">
+                      OPERATOR ID
+                    </Label>
+                    <Input
+                      id="email"
+                      type="email"
+                      placeholder="operator@cosmicwatch.gov"
+                      value={loginData.email}
+                      onChange={(e) => setLoginData({ ...loginData, email: e.target.value })}
+                      className="bg-secondary/50 border-border focus:border-primary font-rajdhani"
+                      required
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="password" className="font-orbitron text-xs text-muted-foreground tracking-wider">
+                      SECURITY CODE
+                    </Label>
+                    <Input
+                      id="password"
+                      type="password"
+                      placeholder="••••••••••••"
+                      value={loginData.password}
+                      onChange={(e) => setLoginData({ ...loginData, password: e.target.value })}
+                      className="bg-secondary/50 border-border focus:border-primary font-rajdhani"
+                      required
+                    />
+                  </div>
+                  <Button
+                    type="submit"
+                    disabled={isLoading}
+                    className="w-full font-orbitron tracking-wider bg-primary/20 border border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-all"
+                    style={{
+                      boxShadow: isLoading ? 'none' : '0 0 20px hsl(var(--primary) / 0.3)',
+                    }}
+                  >
+                    {isLoading ? 'AUTHENTICATING...' : 'ENTER MONITORING CONSOLE'}
+                  </Button>
+                </form>
+              </TabsContent>
+
+              {/* Signup Form */}
+              <TabsContent value="signup">
+                <form onSubmit={handleSignup} className="space-y-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="signup-email" className="font-orbitron text-xs text-muted-foreground tracking-wider">
+                      OPERATOR ID
+                    </Label>
+                    <Input
+                      id="signup-email"
+                      type="email"
+                      placeholder="operator@cosmicwatch.gov"
+                      value={signupData.email}
+                      onChange={(e) => setSignupData({ ...signupData, email: e.target.value })}
+                      className="bg-secondary/50 border-border focus:border-primary font-rajdhani"
+                      required
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="signup-password" className="font-orbitron text-xs text-muted-foreground tracking-wider">
+                      SECURITY CODE
+                    </Label>
+                    <Input
+                      id="signup-password"
+                      type="password"
+                      placeholder="••••••••••••"
+                      value={signupData.password}
+                      onChange={(e) => setSignupData({ ...signupData, password: e.target.value })}
+                      className="bg-secondary/50 border-border focus:border-primary font-rajdhani"
+                      required
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="confirm-password" className="font-orbitron text-xs text-muted-foreground tracking-wider">
+                      CONFIRM CODE
+                    </Label>
+                    <Input
+                      id="confirm-password"
+                      type="password"
+                      placeholder="••••••••••••"
+                      value={signupData.confirmPassword}
+                      onChange={(e) => setSignupData({ ...signupData, confirmPassword: e.target.value })}
+                      className="bg-secondary/50 border-border focus:border-primary font-rajdhani"
+                      required
+                    />
+                  </div>
+                  <Button
+                    type="submit"
+                    disabled={isLoading}
+                    className="w-full font-orbitron tracking-wider bg-primary/20 border border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-all"
+                    style={{
+                      boxShadow: isLoading ? 'none' : '0 0 20px hsl(var(--primary) / 0.3)',
+                    }}
+                  >
+                    {isLoading ? 'PROCESSING...' : 'REQUEST CLEARANCE'}
+                  </Button>
+                </form>
+              </TabsContent>
+            </Tabs>
+
+            {/* Back to home link */}
+            <div className="mt-6 text-center">
+              <button
+                onClick={() => navigate('/')}
+                className="text-sm text-muted-foreground hover:text-primary transition-colors font-rajdhani"
               >
-                SIGN UP
-              </TabsTrigger>
-            </TabsList>
+                ← Return to Base
+              </button>
+            </div>
+          </div>
 
-            {/* Login Form */}
-            <TabsContent value="login">
-              <form onSubmit={handleLogin} className="space-y-4">
-                <div className="space-y-2">
-                  <Label htmlFor="email" className="font-rajdhani text-muted-foreground">
-                    Email Address
-                  </Label>
-                  <Input
-                    id="email"
-                    type="email"
-                    placeholder="commander@space.gov"
-                    value={loginData.email}
-                    onChange={(e) => setLoginData({ ...loginData, email: e.target.value })}
-                    className="bg-secondary border-border focus:border-primary font-rajdhani"
-                    required
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="password" className="font-rajdhani text-muted-foreground">
-                    Password
-                  </Label>
-                  <Input
-                    id="password"
-                    type="password"
-                    placeholder="••••••••"
-                    value={loginData.password}
-                    onChange={(e) => setLoginData({ ...loginData, password: e.target.value })}
-                    className="bg-secondary border-border focus:border-primary font-rajdhani"
-                    required
-                  />
-                </div>
-                <Button
-                  type="submit"
-                  disabled={isLoading}
-                  className="w-full font-orbitron tracking-wider bg-primary text-primary-foreground hover:bg-primary/90"
-                >
-                  {isLoading ? 'AUTHENTICATING...' : 'ACCESS SYSTEM'}
-                </Button>
-              </form>
-            </TabsContent>
-
-            {/* Signup Form */}
-            <TabsContent value="signup">
-              <form onSubmit={handleSignup} className="space-y-4">
-                <div className="space-y-2">
-                  <Label htmlFor="signup-email" className="font-rajdhani text-muted-foreground">
-                    Email Address
-                  </Label>
-                  <Input
-                    id="signup-email"
-                    type="email"
-                    placeholder="commander@space.gov"
-                    value={signupData.email}
-                    onChange={(e) => setSignupData({ ...signupData, email: e.target.value })}
-                    className="bg-secondary border-border focus:border-primary font-rajdhani"
-                    required
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="signup-password" className="font-rajdhani text-muted-foreground">
-                    Password
-                  </Label>
-                  <Input
-                    id="signup-password"
-                    type="password"
-                    placeholder="••••••••"
-                    value={signupData.password}
-                    onChange={(e) => setSignupData({ ...signupData, password: e.target.value })}
-                    className="bg-secondary border-border focus:border-primary font-rajdhani"
-                    required
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="confirm-password" className="font-rajdhani text-muted-foreground">
-                    Confirm Password
-                  </Label>
-                  <Input
-                    id="confirm-password"
-                    type="password"
-                    placeholder="••••••••"
-                    value={signupData.confirmPassword}
-                    onChange={(e) => setSignupData({ ...signupData, confirmPassword: e.target.value })}
-                    className="bg-secondary border-border focus:border-primary font-rajdhani"
-                    required
-                  />
-                </div>
-                <Button
-                  type="submit"
-                  disabled={isLoading}
-                  className="w-full font-orbitron tracking-wider bg-primary text-primary-foreground hover:bg-primary/90"
-                >
-                  {isLoading ? 'REGISTERING...' : 'CREATE ACCOUNT'}
-                </Button>
-              </form>
-            </TabsContent>
-          </Tabs>
-
-          {/* Back to home link */}
-          <div className="mt-6 text-center">
-            <button
-              onClick={() => navigate('/')}
-              className="text-sm text-muted-foreground hover:text-primary transition-colors font-rajdhani"
-            >
-              ← Return to Base
-            </button>
+          {/* Footer */}
+          <div className="bg-secondary/50 border-t border-border px-6 py-3">
+            <p className="text-[10px] text-muted-foreground text-center font-rajdhani">
+              COSMIC WATCH v2.1.0 • PLANETARY DEFENSE MONITORING SYSTEM
+            </p>
           </div>
         </div>
       </motion.div>

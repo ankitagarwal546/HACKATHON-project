@@ -1,19 +1,25 @@
 import { Asteroid } from '@/types/asteroid';
 import { motion } from 'framer-motion';
-import { AlertTriangle } from 'lucide-react';
+import { AlertTriangle, ExternalLink, Target } from 'lucide-react';
 
 interface AsteroidDetailsPanelProps {
   asteroid: Asteroid | null;
   onViewImpact: () => void;
+  onInspect?: () => void;
 }
 
-export const AsteroidDetailsPanel = ({ asteroid, onViewImpact }: AsteroidDetailsPanelProps) => {
+export const AsteroidDetailsPanel = ({ asteroid, onViewImpact, onInspect }: AsteroidDetailsPanelProps) => {
   if (!asteroid) {
     return (
       <div className="h-full flex items-center justify-center p-6">
-        <p className="text-muted-foreground font-rajdhani text-center">
-          Click on an Asteroid to the left, and monitor their properties in the table below
-        </p>
+        <div className="text-center">
+          <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-secondary/50 flex items-center justify-center">
+            <Target className="w-8 h-8 text-muted-foreground" />
+          </div>
+          <p className="text-muted-foreground font-rajdhani">
+            Select an asteroid from the list to view its detailed properties
+          </p>
+        </div>
       </div>
     );
   }
@@ -55,10 +61,23 @@ export const AsteroidDetailsPanel = ({ asteroid, onViewImpact }: AsteroidDetails
         ))}
       </div>
 
+      {/* Inspect Button */}
+      {onInspect && (
+        <motion.button
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+          onClick={onInspect}
+          className="mt-4 w-full py-3 px-4 bg-primary/20 border border-primary text-primary font-orbitron text-sm tracking-wider rounded-lg transition-colors hover:bg-primary/30 flex items-center justify-center gap-2"
+        >
+          <ExternalLink className="w-4 h-4" />
+          Full Inspection Report
+        </motion.button>
+      )}
+
       {/* Hypothetical Hit Section */}
-      <div className="mt-6 p-4 bg-destructive/10 border border-destructive/30 rounded-lg">
+      <div className="mt-4 p-4 bg-destructive/10 border border-destructive/30 rounded-lg">
         <p className="text-sm text-foreground font-rajdhani mb-4 text-center">
-          Click this button to view see what would happen if this Asteroid hit Earth.
+          Simulate what would happen if this asteroid impacted Earth
         </p>
         <motion.button
           whileHover={{ scale: 1.02 }}
@@ -66,7 +85,7 @@ export const AsteroidDetailsPanel = ({ asteroid, onViewImpact }: AsteroidDetails
           onClick={onViewImpact}
           className="w-full py-3 px-4 bg-secondary border border-border hover:border-destructive text-foreground font-orbitron text-sm tracking-wider rounded transition-colors"
         >
-          Hypothetical hit
+          Hypothetical Impact
         </motion.button>
       </div>
 
