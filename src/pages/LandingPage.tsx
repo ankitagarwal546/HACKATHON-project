@@ -8,24 +8,28 @@ const LandingPage = () => {
 
   return (
     <div className="relative min-h-screen overflow-hidden">
-      {/* Background Image - Fixed to fit frame */}
-      <motion.div 
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1.5 }}
-        className="absolute inset-0"
-      >
-        <div 
-          className="absolute inset-0 bg-contain bg-center bg-no-repeat md:bg-cover"
+      {/* Animated Sky Background - Slow rotation effect */}
+      <div className="absolute inset-0 overflow-hidden">
+        <motion.div 
+          initial={{ x: 0 }}
+          animate={{ x: '-10%' }}
+          transition={{ 
+            duration: 120, 
+            repeat: Infinity, 
+            ease: "linear",
+            repeatType: "loop"
+          }}
+          className="absolute inset-0 w-[120%] h-full"
           style={{ 
             backgroundImage: `url(${heroBg})`,
             backgroundSize: 'cover',
-            backgroundPosition: 'center center'
+            backgroundPosition: 'center center',
+            imageRendering: 'crisp-edges'
           }}
         />
-        {/* Gradient overlay for better text readability */}
-        <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/40 to-background/90" />
-      </motion.div>
+        {/* Subtle gradient overlay for text readability */}
+        <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-transparent to-background/60" />
+      </div>
 
       {/* Scanline effect */}
       <div className="absolute inset-0 scanlines pointer-events-none" />
