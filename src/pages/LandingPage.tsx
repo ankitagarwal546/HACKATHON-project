@@ -1,21 +1,20 @@
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Navbar } from '@/components/Navbar';
-import heroBg from '@/assets/hero-bg.jpg';
+import { EarthScene } from '@/components/3d/EarthScene';
 
 const LandingPage = () => {
   const navigate = useNavigate();
 
   return (
     <div className="relative h-screen overflow-hidden">
-      {/* Background Image */}
-      <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: `url(${heroBg})` }}
-      >
-        {/* Gradient overlay for better text readability */}
-        <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-transparent to-background/60" />
+      {/* 3D Earth Background */}
+      <div className="absolute inset-0">
+        <EarthScene />
       </div>
+
+      {/* Gradient overlay for text readability */}
+      <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-transparent to-background/50 pointer-events-none" />
 
       {/* Scanline effect */}
       <div className="absolute inset-0 scanlines pointer-events-none" />
@@ -24,7 +23,7 @@ const LandingPage = () => {
       <Navbar />
 
       {/* Hero Content */}
-      <div className="relative z-10 flex flex-col items-center justify-center h-full px-4">
+      <div className="relative z-10 flex flex-col items-center justify-center h-full px-4 pointer-events-none">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -60,7 +59,7 @@ const LandingPage = () => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.98 }}
             onClick={() => navigate('/login')}
-            className="relative px-12 py-4 font-orbitron text-lg tracking-widest border-2 border-foreground/60 text-foreground bg-transparent hover:border-primary hover:text-primary transition-all duration-300 glow-pulse"
+            className="relative px-12 py-4 font-orbitron text-lg tracking-widest border-2 border-foreground/60 text-foreground bg-transparent hover:border-primary hover:text-primary transition-all duration-300 glow-pulse pointer-events-auto"
           >
             GO TRACK
             <span className="absolute inset-0 bg-primary/5 opacity-0 hover:opacity-100 transition-opacity" />
