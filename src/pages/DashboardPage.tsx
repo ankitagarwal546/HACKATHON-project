@@ -1,8 +1,6 @@
 import { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Navbar } from '@/components/Navbar';
-import SystemStatusBar from '@/components/SystemStatusBar';
 import PlanetarySafetyIndex from '@/components/dashboard/PlanetarySafetyIndex';
 import RiskExplanationModal from '@/components/dashboard/RiskExplanationModal';
 import { MonthSelector } from '@/components/dashboard/MonthSelector';
@@ -13,14 +11,10 @@ import { getAsteroidsByMonth, calculateImpactScenario } from '@/data/mockAsteroi
 import { Asteroid, ImpactScenario } from '@/types/asteroid';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Globe, LayoutDashboard, LogOut, HelpCircle } from 'lucide-react';
-import { useAlertNotifications } from '@/hooks/useAlertNotifications';
 
 const DashboardPage = () => {
   const navigate = useNavigate();
   const asteroidGroups = useMemo(() => getAsteroidsByMonth(), []);
-  
-  // Trigger alert notifications on mount
-  useAlertNotifications();
   
   const [selectedMonth, setSelectedMonth] = useState<string | null>(
     asteroidGroups.length > 0 ? `${asteroidGroups[0].month} ${asteroidGroups[0].year}` : null
@@ -61,11 +55,8 @@ const DashboardPage = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Navbar />
-      <SystemStatusBar />
-      
       {/* Dashboard Content */}
-      <div className="pt-32 pb-8 px-4 md:px-8">
+      <div className="pt-8 pb-8 px-4 md:px-8">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: -10 }}
