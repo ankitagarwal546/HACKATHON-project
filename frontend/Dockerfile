@@ -1,29 +1,31 @@
-# Build stage
+# ---------- Build stage ----------
 FROM node:20-alpine AS builder
 
 WORKDIR /app
 
-# Install dependencies
+# install deps
 COPY package*.json ./
 RUN npm ci
 
-# Copy source files
+# copy source
 COPY . .
 
-# Build the application
+# IMPORTANT: pass API base to Vite at build time
+ARG VITE_API_BASE_URL
+ENV VITE_API_BASE_URL=$VITE_API_BASE_URL
+# build React app
 RUN npm run build
 
-# Production stage
+
+# ---------- Production stage ----------
 FROM nginx:alpine AS production
 
-# Copy custom nginx config
+# custom nginx config (reverse proxy)
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-# Copy built files from builder stage
+# copy built files
 COPY --from=builder /app/dist /usr/share/nginx/html
 
-# Expose port 80
 EXPOSE 80
 
-# Start nginx
 CMD ["nginx", "-g", "daemon off;"]

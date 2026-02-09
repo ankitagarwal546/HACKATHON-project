@@ -720,3 +720,73 @@ This project demonstrates:
 
 *Last Updated: February 8, 2026*
 *Project Status: Production Ready* ✅
+🐳 Running with Docker (Recommended)
+
+This project is fully containerized. The frontend, backend, and MongoDB database run together using Docker Compose.
+
+Requirements
+
+Install Docker Desktop
+
+Make sure Docker Desktop is running
+
+(No need to install Node.js, npm, or MongoDB locally.)
+
+Start the Application
+
+From the project root directory:
+
+docker compose up --build
+
+The first build may take a few minutes because dependencies and images are created.
+
+After startup, open:
+
+Frontend:
+
+http://localhost:3000
+
+Backend API:
+
+http://localhost:5001
+
+Health Check:
+
+http://localhost:5001/health
+Stop the Application
+
+Press:
+
+CTRL + C
+
+Then clean containers:
+
+docker compose down
+Run Again (Faster)
+
+After the first build:
+
+docker compose up
+What Docker Does
+
+Docker Compose starts three services:
+
+frontend → React app served via Nginx
+
+backend → Node.js + Express API
+
+mongo → MongoDB database
+
+All services communicate over a shared Docker network, allowing the project to run identically on any system.
+
+For Evaluators
+
+To run the project:
+
+docker compose up --build
+
+Then open:
+
+http://localhost:3000
+
+No additional setup required.
