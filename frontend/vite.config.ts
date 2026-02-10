@@ -13,15 +13,15 @@ export default defineConfig(({ mode }) => ({
     },
     proxy: {
       "/api": {
-        target: "http://backend:5000",
+        target: "http://localhost:5001",
         changeOrigin: true,
       },
       "/health": {
-        target: "http://backend:5000",
+        target: "http://localhost:5001",
         changeOrigin: true,
       },
       "/socket.io": {
-        target: "http://backend:5000",
+        target: "http://localhost:5001",
         changeOrigin: true,
         ws: true,
       },
